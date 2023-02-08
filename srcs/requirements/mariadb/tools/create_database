@@ -1,0 +1,10 @@
+#!/bin/bash
+
+chmod 644 /etc/mysql/my.cnf
+
+service mysql start && sleep 5s
+mysql -e "CREATE DATABASE veryImportantDB;\
+CREATE USER 'coolUser'@'%' IDENTIFIED BY 'amaZingpAsswOrd'; \
+GRANT ALL PRIVILEGES ON veryImportantDB.* TO 'coolUser'@'%';"
+
+chmod 600 /etc/mysql/my.cnf

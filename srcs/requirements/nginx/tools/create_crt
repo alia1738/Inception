@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir /etc/nginx/ssl
+openssl genrsa -out /etc/nginx/ssl/nginx.key 2048
+openssl req -new -key /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.csr -config /etc/nginx/csr.conf
+openssl x509 -in /etc/nginx/ssl/nginx.csr -signkey /etc/nginx/ssl/nginx.key -req -days 365 -out /etc/nginx/ssl/nginx.crt

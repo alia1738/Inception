@@ -1,0 +1,67 @@
+version: '3.3'
+
+services:
+  nginx:
+    build: ./requirements/nginx/
+    image: nginx:mine
+    restart: on-failure
+    ports:
+      - 443:443
+    volumes:
+      - wp:/var/www/html/
+    networks:
+      - docker_network
+    depends_on:
+      - wordpress
+
+  wordpress:
+    build: ./requirements/wordpress/
+    image: wordpress:mine
+    restart: on-failure
+    env_file:
+      - .env
+    expose:
+      - 9000
+    volumes:
+      - wp:/var/www/html/
+    networks:
+      - docker_network
+    depends_on:
+      - mariadb
+
+  mariadb:
+    build: ./requirements/mariadb/
+    image: mariadb:mine
+    restart: on-failure
+    env_file:
+      - .env
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER_NAME=${DATABASE_USER_NAME}
+      - DATABASE_USER_PASS=${DATABASE_USER_PASS}
+    expose:
+      - 3306
+    volumes:
+      - db:/var/lib/mysql/
+    networks:
+      - docker_network
+
+
+volumes:
+  wp:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/aalsuwai/Desktop/Inception/wp
+      # device: /home/aalsuwai/data/wp
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/aalsuwai/Desktop/Inception/db
+      # device: /home/aalsuwai/data/db
+
+networks:
+  docker_network:

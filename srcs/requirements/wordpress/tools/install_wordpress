@@ -1,0 +1,15 @@
+#!/bin/bash
+
+curl -O https://wordpress.org/latest.tar.gz
+
+# Extract the contents of the archive:
+tar xvzf latest.tar.gz
+
+# Move the contents of the WordPress directory to the Apache document root:
+mv wordpress/* /var/www/html/
+
+# Set the ownership and permissions for the WordPress files:
+chown -R www-data:www-data /var/www/html/ && chmod -R 755 /var/www/html/
+
+# Remove the archive and WordPress directory:
+rm latest.tar.gz && rm -rf wordpress/

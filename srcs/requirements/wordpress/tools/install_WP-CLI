@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Download the WP-CLI phar file
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+# Make the WP-CLI phar file executable
+chmod u+x wp-cli.phar
+
+# Move the WP-CLI phar file to the /usr/local/bin directory
+mv wp-cli.phar /usr/local/bin/wp
