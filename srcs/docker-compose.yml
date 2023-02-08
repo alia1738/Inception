@@ -35,10 +35,10 @@ services:
     restart: on-failure
     env_file:
       - .env
-    environment:
-      - DATABASE_NAME=${DATABASE_NAME}
-      - DATABASE_USER_NAME=${DATABASE_USER_NAME}
-      - DATABASE_USER_PASS=${DATABASE_USER_PASS}
+    # environment:
+    #   - DATABASE_NAME=${DATABASE_NAME}
+    #   - DATABASE_USER_NAME=${DATABASE_USER_NAME}
+    #   - DATABASE_USER_PASS=${DATABASE_USER_PASS}
     expose:
       - 3306
     volumes:
