@@ -30,15 +30,16 @@ services:
       - mariadb
 
   mariadb:
-    build: ./requirements/mariadb/
+    build: 
+      context: ./requirements/mariadb/
+      args:
+        - DATABASE_NAME=${DATABASE_NAME}
+        - DATABASE_USER_NAME=${DATABASE_USER_NAME}
+        - DATABASE_USER_PASS=${DATABASE_USER_PASS}
     image: mariadb:mine
     restart: on-failure
     env_file:
       - .env
-    # environment:
-    #   - DATABASE_NAME=${DATABASE_NAME}
-    #   - DATABASE_USER_NAME=${DATABASE_USER_NAME}
-    #   - DATABASE_USER_PASS=${DATABASE_USER_PASS}
     expose:
       - 3306
     volumes:
@@ -53,15 +54,17 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/aalsuwai/Desktop/Inception/wp
-      # device: /home/aalsuwai/data/wp
+      # device: /Users/${USER}/Desktop/Inception/wp
+      # device: /Users/Alia/Desktop/Inception/wp
+      device: /home/${USER}/data/wp
   db:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/aalsuwai/Desktop/Inception/db
-      # device: /home/aalsuwai/data/db
+      # device: /Users/Alia/Desktop/Inception/db
+      # device: /Users/${USER}/Desktop/Inception/db
+      device: /home/${USER}/data/db
 
 networks:
   docker_network:
