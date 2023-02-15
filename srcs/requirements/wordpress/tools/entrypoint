@@ -2,7 +2,8 @@
 
 cd /var/www/html
 
-wp core install --url=localhost --title=coolPage --admin_user=coolUser --admin_password=amaZingpAsswOrd --admin_email=aalsuwai@student.42abudhabi.ae --allow-root
+wp core install --url=aalsuwai.42.fr --title=coolPage --admin_user=coolUser --admin_password=amaZingpAsswOrd --admin_email=aalsuwai@student.42abudhabi.ae --allow-root
+# wp core install --url=localhost --title=coolPage --admin_user=coolUser --admin_password=amaZingpAsswOrd --admin_email=aalsuwai@student.42abudhabi.ae --allow-root
 wp user create lostSoul stolen_account@gmail.com --role=subscriber --user_pass=password --allow-root
 
 wp theme install ketos --activate --allow-root

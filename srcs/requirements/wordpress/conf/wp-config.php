@@ -32,12 +32,15 @@ define( 'DB_PASSWORD', 'amaZingpAsswOrd' );
 define( 'DB_HOST', 'mariadb' );
 
 /** Database charset to use in creating database tables. */
-// define( 'DB_CHARSET', 'utf8mb4' );
 define( 'DB_CHARSET', 'utf8' );
 
 /** The database collate type. Don't change this if in doubt. */
-// define( 'DB_COLLATE', 'utf8mb4_general_ci' );
 define( 'DB_COLLATE', '' );
+
+/* radis conf */
+define( 'WP_REDIS_HOST', 'radis' );
+define( 'WP_REDIS_PORT', '6379' );
+define( 'WP_REDIS_PORT', 'aalsuwai.42.fr' );
 
 /**#@+
  * Authentication unique keys and salts.
