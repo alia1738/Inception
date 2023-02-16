@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.9'
 
 services:
   nginx:
@@ -28,7 +28,7 @@ services:
       - docker_network
     depends_on:
       - mariadb
-      # - redis
+      - redis
 
   mariadb:
     build: 
@@ -48,14 +48,14 @@ services:
     networks:
       - docker_network
 
-  # redis:
-  #   build: ./requirements/bonus/redis/
-  #   image: redis:mine
-  #   restart: on-failure
-  #   expose:
-  #    - 6379
-  #   networks:
-  #     - docker_network
+  redis:
+    build: ./requirements/bonus/redis/
+    image: redis:mine
+    restart: on-failure
+    expose:
+     - 6379
+    networks:
+      - docker_network
   
 volumes:
   wp:
@@ -63,17 +63,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      # device: /Users/${USER}/Desktop/Inception/wp
-      device: /Users/Alia/Desktop/Inception/wp
-      # device: /home/${USER}/data/wp
+      device: /home/${USER}/data/wp
   db:
     driver: local
     driver_opts:
       type: none
       o: bind
-      # device: /Users/Alia/Desktop/Inception/db
-      device: /Users/${USER}/Desktop/Inception/db
-      # device: /home/${USER}/data/db
+      device: /home/${USER}/data/db
 
 networks:
   docker_network:

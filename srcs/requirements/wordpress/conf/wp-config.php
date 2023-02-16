@@ -38,9 +38,10 @@ define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 
 /* radis conf */
-define( 'WP_REDIS_HOST', 'radis' );
+define( 'WP_REDIS_HOST', 'redis' );
 define( 'WP_REDIS_PORT', '6379' );
-define( 'WP_REDIS_PORT', 'aalsuwai.42.fr' );
+define( 'WP_REDIS_PORT', 'localhost' );
+// define( 'WP_REDIS_PORT', 'aalsuwai.42.fr' );
 
 /**#@+
  * Authentication unique keys and salts.
