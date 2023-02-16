@@ -21,6 +21,10 @@ RUN ./install_wordpress && ./install_WP-CLI
 
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
+COPY tools/static_website/ /game/
+
+RUN mv game /var/www/html/
+
 EXPOSE 9000
 
 ENTRYPOINT [ "./entrypoint" ]
