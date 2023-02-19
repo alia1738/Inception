@@ -1,5 +1,15 @@
 FROM debian:buster
 
+ARG DATABASE_NAME
+ARG DATABASE_USER_NAME
+ARG DATABASE_USER_PASS
+ARG DATABASE_HOST
+
+ENV DATABASE_NAME=$DATABASE_NAME
+ENV DATABASE_USER_NAME=$DATABASE_USER_NAME
+ENV DATABASE_USER_PASS=$DATABASE_USER_PASS
+ENV DATABASE_HOST=$DATABASE_HOST
+
 COPY tools/entrypoint /
 COPY tools/install_wordpress /
 COPY tools/install_WP-CLI /
@@ -11,7 +21,8 @@ RUN apt-get update && apt-get install -y \
 	curl \
     php \
 	php7.3-fpm \
-    php-mysqli
+    php-mysqli \
+	wget
 
 RUN rm -rf /var/lib/apt/lists/*
 

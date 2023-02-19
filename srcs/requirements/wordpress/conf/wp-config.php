@@ -21,15 +21,23 @@
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'veryImportantDB' );
+// define( 'DB_NAME', getenv("DATABASE_NAME") );
+// define( 'DB_NAME', $_ENV["DATABASE_NAME"] );
 
 /** Database username */
 define( 'DB_USER', 'coolUser' );
+// define( 'DB_NAME', getenv("DATABASE_USER_NAME") );
+// define( 'DB_USER', $_ENV["DATABASE_USER_NAME"] );
 
 /** Database password */
 define( 'DB_PASSWORD', 'amaZingpAsswOrd' );
+// define( 'DB_NAME', getenv("DATABASE_USER_PASS") );
+// define( 'DB_PASSWORD', $_ENV["DATABASE_USER_PASS"] );
 
 /** Database hostname */
 define( 'DB_HOST', 'mariadb' );
+// define( 'DB_NAME', getenv("DATABASE_HOST") );
+// define( 'DB_HOST', $_ENV["DATABASE_HOST"] );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -40,7 +48,7 @@ define( 'DB_COLLATE', '' );
 /* radis conf */
 define( 'WP_REDIS_HOST', 'redis' );
 define( 'WP_REDIS_PORT', '6379' );
-define( 'WP_REDIS_PORT', 'localhost' );
+// define( 'WP_REDIS_PORT', 'localhost' );
 // define( 'WP_REDIS_PORT', 'aalsuwai.42.fr' );
 
 /**#@+

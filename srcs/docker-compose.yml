@@ -15,7 +15,13 @@ services:
       - wordpress
 
   wordpress:
-    build: ./requirements/wordpress/
+    build: 
+      context: ./requirements/wordpress/
+      args:
+        - DATABASE_NAME=${DATABASE_NAME}
+        - DATABASE_USER_NAME=${DATABASE_USER_NAME}
+        - DATABASE_USER_PASS=${DATABASE_USER_PASS}
+        - DATABASE_HOST=${DATABASE_HOST}
     image: wordpress:mine
     restart: on-failure
     env_file:
@@ -29,6 +35,7 @@ services:
     depends_on:
       - mariadb
       - redis
+      - ftp
 
   mariadb:
     build: 
@@ -57,6 +64,23 @@ services:
     networks:
       - docker_network
   
+  ftp:
+    build: 
+      context: ./requirements/bonus/ftp
+      args:
+        - FTP_NAME=${FTP_NAME}
+        - FTP_PASS=${FTP_PASS}
+    image: ftp:mine
+    restart: on-failure
+    env_file:
+      - .env
+    expose:
+      - 20
+    volumes:
+      - wp:/var/www/html/
+    networks:
+      - docker_network
+
 volumes:
   wp:
     driver: local
