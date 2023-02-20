@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.9'
 
 services:
   nginx:
@@ -10,12 +10,18 @@ services:
     volumes:
       - wp:/var/www/html/
     networks:
-      - docker_network
+      - front_network
     depends_on:
       - wordpress
 
   wordpress:
-    build: ./requirements/wordpress/
+    build: 
+      context: ./requirements/wordpress/
+      args:
+        - DATABASE_NAME=${DATABASE_NAME}
+        - DATABASE_USER_NAME=${DATABASE_USER_NAME}
+        - DATABASE_USER_PASS=${DATABASE_USER_PASS}
+        - DATABASE_HOST=${DATABASE_HOST}
     image: wordpress:mine
     restart: on-failure
     env_file:
@@ -25,9 +31,11 @@ services:
     volumes:
       - wp:/var/www/html/
     networks:
-      - docker_network
+      - front_network
+      - back_network
     depends_on:
       - mariadb
+      - redis
 
   mariadb:
     build: 
@@ -45,8 +53,35 @@ services:
     volumes:
       - db:/var/lib/mysql/
     networks:
-      - docker_network
+      - back_network
 
+  redis:
+    build: ./requirements/bonus/redis/
+    image: redis:mine
+    restart: on-failure
+    expose:
+     - 6379
+    networks:
+      - back_network
+  
+  ftp:
+    build: 
+      context: ./requirements/bonus/ftp
+      args:
+        - FTP_NAME=${FTP_NAME}
+        - FTP_PASS=${FTP_PASS}
+    image: ftp:mine
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "20-21:20-21"
+      - "990:990"
+      - "65000-65042:65000-65042"
+    volumes:
+      - wp:/var/www/html/
+    depends_on:
+      - wordpress
 
 volumes:
   wp:
@@ -54,17 +89,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      # device: /Users/${USER}/Desktop/Inception/wp
-      # device: /Users/Alia/Desktop/Inception/wp
       device: /home/${USER}/data/wp
   db:
     driver: local
     driver_opts:
       type: none
       o: bind
-      # device: /Users/Alia/Desktop/Inception/db
-      # device: /Users/${USER}/Desktop/Inception/db
       device: /home/${USER}/data/db
 
 networks:
-  docker_network:
+  front_network:
+  back_network:

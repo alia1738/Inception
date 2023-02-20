@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="game.js"></script>
+	<title>Tic Tac Toe</title>
+</head>
+<body>
+	<h1>Ready to play!</h1>
+	<div class="bord">
+	  <div class="row1">
+	    <input type="text" id="box1" onclick=" BoxOne(); CheckStatus();" readonly>
+	    <input type="text" id="box2" onclick=" BoxTwo(); CheckStatus();" readonly>
+	    <input type="text" id="box3" onclick=" BoxThree(); CheckStatus(); " readonly>
+	  </div>
+	  <div class="row2">
+	    <input type="text" id="box4" onclick=" BoxFour(); CheckStatus();" readonly>
+	    <input type="text" id="box5" onclick=" BoxFive(); CheckStatus();" readonly>
+	    <input type="text" id="box6" onclick=" BoxSix(); CheckStatus();" readonly>
+	  </div>
+	  <div class="row3">
+	    <input type="text" id="box7" onclick=" BoxSeven(); CheckStatus();" readonly>
+	    <input type="text" id="box8" onclick=" BoxEight(); CheckStatus();" readonly>
+	    <input type="text" id="box9" onclick=" BoxNine(); CheckStatus();" readonly>
+	  </div>
+	</div>
+	<p id="result">Player X turn</p>
+	<button onClick="reset_boxes();" >Reset</button>
+</body>
+</html>

@@ -1,13 +1,21 @@
 #!/bin/bash
 
-cd /var/www/html
+if ! wp user list --allow-root | grep -q admin ; then
+	cd /var/www/html
+	# set up adminer
+	mkdir adminer
+	wget -O /var/www/html/adminer/adminer.php https://www.adminer.org/latest.php
+	chown -R www-data:www-data /var/www/html/adminer/
 
-wp core install --url=localhost --title=coolPage --admin_user=coolUser --admin_password=amaZingpAsswOrd --admin_email=aalsuwai@student.42abudhabi.ae --allow-root
-wp user create lostSoul stolen_account@gmail.com --role=subscriber --user_pass=password --allow-root
+	wp core install --url=aalsuwai.42.fr --title=${WP_TITLE} --admin_user=${ADMIN_NAME} --admin_password=${ADMIN_PASS} --admin_email=${ADMIN_EMAIL} --allow-root
+	wp user create ${USER_NAME} ${USER_EMAIL} --role=${USER_ROLE} --user_pass=${USER_PASS} --allow-root
 
-wp theme install ketos --activate --allow-root
+	wp theme install ketos --activate --allow-root
 
-cd ../../..
+	wp plugin install redis-cache --activate --allow-root
+	wp redis enable --allow-root
+	wp plugin install query-monitor --activate --allow-root
+fi
 
 service php7.3-fpm start && service php7.3-fpm stop
 php-fpm7.3 -R --nodaemonize
