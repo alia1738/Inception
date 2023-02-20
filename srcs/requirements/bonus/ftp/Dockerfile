@@ -5,19 +5,13 @@ ARG FTP_PASS
 
 RUN apt-get update && apt-get install -y vsftpd
 
+RUN useradd -r -N --shell /usr/sbin/nologin ftpsecure
+RUN useradd -m -s /bin/bash ${FTP_NAME}
+RUN echo "${FTP_NAME}:${FTP_PASS}" | chpasswd 
+RUN usermod -g www-data ${FTP_NAME}
+RUN mkdir -p /var/run/vsftpd/empty
+RUN echo ${FTP_NAME} > /etc/vsftpd.userlist
+
 COPY conf/vsftpd.conf /etc/vsftpd.conf
-
-RUN mkdir -p /etc/vsftpd /home/lola
-RUN echo '${FTP_NAME}:${FTP_PASS}:1000:1000::/home/lola:/bin/bash' >> /etc/vsftpd/vsftpd_users.conf
-RUN chown -R ftp:ftp /home/lola
-RUN echo '${FTP_PASS}' | tee -a /etc/vsftpd/vsftpd.userpass
-RUN chown root:root /etc/vsftpd/vsftpd.userpass && \
-	chmod 600 /etc/vsftpd/vsftpd.userpass
-
-# RUN mv /etc/vsftpd /var/run/
-RUN mkdir /var/share
-RUN mkdir /var/share/empty
-
-EXPOSE 20
 
 CMD [ "vsftpd" ]

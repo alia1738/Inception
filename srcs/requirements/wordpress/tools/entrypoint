@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ wp user list --allow-root | grep -q admin ]; then
+if ! wp user list --allow-root | grep -q admin ; then
 	cd /var/www/html
 	# set up adminer
 	mkdir adminer

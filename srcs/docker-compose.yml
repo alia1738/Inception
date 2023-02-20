@@ -10,7 +10,7 @@ services:
     volumes:
       - wp:/var/www/html/
     networks:
-      - docker_network
+      - front_network
     depends_on:
       - wordpress
 
@@ -31,11 +31,11 @@ services:
     volumes:
       - wp:/var/www/html/
     networks:
-      - docker_network
+      - front_network
+      - back_network
     depends_on:
       - mariadb
       - redis
-      - ftp
 
   mariadb:
     build: 
@@ -53,7 +53,7 @@ services:
     volumes:
       - db:/var/lib/mysql/
     networks:
-      - docker_network
+      - back_network
 
   redis:
     build: ./requirements/bonus/redis/
@@ -62,7 +62,7 @@ services:
     expose:
      - 6379
     networks:
-      - docker_network
+      - back_network
   
   ftp:
     build: 
@@ -74,12 +74,14 @@ services:
     restart: on-failure
     env_file:
       - .env
-    expose:
-      - 20
+    ports:
+      - "20-21:20-21"
+      - "990:990"
+      - "65000-65042:65000-65042"
     volumes:
       - wp:/var/www/html/
-    networks:
-      - docker_network
+    depends_on:
+      - wordpress
 
 volumes:
   wp:
@@ -96,4 +98,5 @@ volumes:
       device: /home/${USER}/data/db
 
 networks:
-  docker_network:
+  front_network:
+  back_network:
