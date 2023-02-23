@@ -17,5 +17,8 @@ if ! wp user list --allow-root | grep -q admin ; then
 	wp plugin install query-monitor --activate --allow-root
 fi
 
+chmod -R g+w /var/www/html
+chown -R www-data:www-data /var/www/html
+
 service php7.3-fpm start && service php7.3-fpm stop
 php-fpm7.3 -R --nodaemonize
