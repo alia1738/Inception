@@ -1,5 +1,8 @@
-all: create_volumes
+all: create_domain create_volumes
 	docker compose --file srcs/docker-compose.yml up -d --build
+
+create_domain:
+	echo "127.0.0.1    aalsuwai.42.fr" | sudo tee --append /etc/hosts
 
 create_volumes:
 	mkdir -p /home/${USER}/data

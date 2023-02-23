@@ -15,13 +15,7 @@ services:
       - wordpress
 
   wordpress:
-    build: 
-      context: ./requirements/wordpress/
-      args:
-        - DATABASE_NAME=${DATABASE_NAME}
-        - DATABASE_USER_NAME=${DATABASE_USER_NAME}
-        - DATABASE_USER_PASS=${DATABASE_USER_PASS}
-        - DATABASE_HOST=${DATABASE_HOST}
+    build: ./requirements/wordpress/
     image: wordpress:mine
     restart: on-failure
     env_file:
